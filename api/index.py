@@ -213,8 +213,17 @@ def webhook():
     try:
         update_data = request.get_json()
         
-        # Process message asynchronously
-        asyncio.run(process_message(update_data))
+        # Process message asynchronously with proper event loop handling for serverless
+        loop = None
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                raise RuntimeError("Event loop is closed")
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        loop.run_until_complete(process_message(update_data))
         
         return jsonify({'status': 'ok'})
     except Exception as e:
