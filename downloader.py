@@ -6,7 +6,7 @@ This module handles:
 - Extracting direct video URLs (lightning fast, no download)
 - Extracting tweet text/caption
 - Streaming videos directly to Telegram (no local storage)
-- Optimized for serverless (Vercel-ready)
+- Optimized for serverless (Vercel-readyy)
 """
 
 import re
