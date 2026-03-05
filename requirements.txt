@@ -1,0 +1,18 @@
+# Python Telegram Bot library
+python-telegram-bot>=20.0
+
+# Video downloader for Twitter/X and other platforms
+yt-dlp
+
+# HTTP requests for video streaming
+requests
+
+# Load environment variables from .env file
+python-dotenv
+
+# Web framework for webhook handling (Vercel deployment)
+Flask>=2.3.0
+
+# Additional dependencies (automatically installed with above packages)
+# - certifi (for SSL certificates)
+# - urllib3 (for HTTP requests)
