@@ -96,18 +96,16 @@ async def process_message(update_data):
         urls = re.findall(url_pattern, message_text)
         
         if not urls:
-            await bot.send_message(
-                chat_id=chat_id,
-                text="❌ No Twitter/X URL detected.\n\nSend a valid video link!"
-            )
+            # Silently ignore messages without Twitter links (for groups)
             return
         
         url = urls[0]
         
         if not is_valid_twitter_url(url):
+            # Only respond if they sent a Twitter link but it's invalid
             await bot.send_message(
                 chat_id=chat_id,
-                text="❌ Invalid URL.\n\nMust contain '/status/'"
+                text="❌ Invalid Twitter URL.\n\nMust contain '/status/'"
             )
             return
         
