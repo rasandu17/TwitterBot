@@ -220,13 +220,3 @@ def webhook():
     except Exception as e:
         print(f"Webhook error: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
-
-
-# Vercel serverless function entry point
-def handler(environ, start_response):
-    """WSGI handler for Vercel"""
-    return app(environ, start_response)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
