@@ -199,20 +199,17 @@ async def process_message(update_data):
             pass
 
 
-@app.route('/', methods=['GET'])
-def index():
-    """Health check endpoint"""
-    return jsonify({
-        'status': 'active',
-        'bot': 'Twitter Video Bot',
-        'version': '2.0 Vercel',
-        'features': ['countdown', 'captions', 'ultra-fast', 'serverless']
-    })
-
-
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def webhook():
-    """Handle incoming Telegram webhooks"""
+    """Handle incoming Telegram webhooks and health checks"""
+    if request.method == 'GET':
+        return jsonify({
+            'status': 'active',
+            'bot': 'Twitter Video Bot',
+            'version': '2.0 Vercel',
+            'features': ['countdown', 'captions', 'ultra-fast', 'serverless']
+        })
+    
     try:
         update_data = request.get_json()
         
