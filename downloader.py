@@ -46,22 +46,37 @@ def get_video_info(url):
     """
     # Configure yt-dlp for ultra-fast info extraction
     ydl_opts = {
-        'format': 'best',  # Get best quality URL
+        'format': 'best[ext=mp4]/best',  # Prefer mp4 format
         'quiet': True,  # Suppress output
         'no_warnings': True,
         'extract_flat': False,
         'skip_download': True,  # Don't download, just get info
-        'socket_timeout': 10,  # Faster timeout
+        'socket_timeout': 15,  # Longer timeout for nested tweets
         'no_check_certificate': True,  # Skip cert validation for speed
     }
+    
+    # Clean URL - remove tracking parameters
+    clean_url = url.split('?')[0]
     
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             # Extract video information (fast, no download)
-            info = ydl.extract_info(url, download=False)
+            info = ydl.extract_info(clean_url, download=False)
             
             if not info:
                 raise Exception("Could not extract video information")
+            
+            # Handle playlists or nested entries (quote tweets)
+            entries = info.get('entries')
+            if entries:
+                # It's a playlist/nested - get the first entry with video
+                for entry in entries:
+                    if entry and entry.get('url'):
+                        info = entry
+                        break
+                    if entry and entry.get('formats'):
+                        info = entry
+                        break
             
             # Get direct video URL - check multiple locations
             video_url = info.get('url')
@@ -83,7 +98,7 @@ def get_video_info(url):
                         break
             
             if not video_url:
-                raise Exception("No video found in this tweet. Make sure the tweet contains a video.")
+                raise Exception("No video found in this tweet. The tweet may only contain images or text.")
             
             # Extract tweet caption/text (the tweet's actual text content)
             caption = info.get('description', '') or info.get('title', '')
