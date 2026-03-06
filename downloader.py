@@ -63,10 +63,27 @@ def get_video_info(url):
             if not info:
                 raise Exception("Could not extract video information")
             
-            # Get direct video URL
+            # Get direct video URL - check multiple locations
             video_url = info.get('url')
+            
+            # If no direct URL, check formats list for best video
+            if not video_url and info.get('formats'):
+                # Filter for formats with video
+                video_formats = [f for f in info['formats'] if f.get('vcodec', 'none') != 'none']
+                if video_formats:
+                    # Get the best quality video format
+                    best = video_formats[-1]
+                    video_url = best.get('url')
+            
+            # Also check requested_formats (merged format)
+            if not video_url and info.get('requested_formats'):
+                for fmt in info['requested_formats']:
+                    if fmt.get('vcodec', 'none') != 'none':
+                        video_url = fmt.get('url')
+                        break
+            
             if not video_url:
-                raise Exception("No video URL found in the tweet")
+                raise Exception("No video found in this tweet. Make sure the tweet contains a video.")
             
             # Extract tweet caption/text (the tweet's actual text content)
             caption = info.get('description', '') or info.get('title', '')
