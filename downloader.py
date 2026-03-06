@@ -26,14 +26,14 @@ def is_valid_twitter_url(url):
     Returns:
         bool: True if valid Twitter/X URL, False otherwise
     """
-    # Pattern to match Twitter/X URLs with status
+    # Pattern to match Twitter/X URLs with status (allows query parameters)
     twitter_patterns = [
         r'https?://(?:www\.)?twitter\.com/\w+/status/\d+',
         r'https?://(?:www\.)?x\.com/\w+/status/\d+'
     ]
     
     for pattern in twitter_patterns:
-        if re.match(pattern, url):
+        if re.search(pattern, url):
             return True
     return False
 
