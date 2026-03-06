@@ -1,5 +1,7 @@
 ﻿<p align="center">
   <img src="logo.png" alt="X Logo" width="100">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="telegram_logo.svg" alt="Telegram Logo" width="100">
 </p>
 
 # Twitter Video Bot
