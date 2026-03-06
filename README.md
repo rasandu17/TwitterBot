@@ -1,4 +1,8 @@
-﻿# Twitter Video Bot
+﻿<p align="center">
+  <img src="logo.png" alt="X Logo" width="100">
+</p>
+
+# Twitter Video Bot
 
 A Telegram bot that downloads videos from Twitter/X links and sends them directly to your chat.
 
