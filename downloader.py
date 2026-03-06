@@ -26,16 +26,9 @@ def is_valid_twitter_url(url):
     Returns:
         bool: True if valid Twitter/X URL, False otherwise
     """
-    # Pattern to match Twitter/X URLs with status (allows query parameters)
-    twitter_patterns = [
-        r'https?://(?:www\.)?twitter\.com/\w+/status/\d+',
-        r'https?://(?:www\.)?x\.com/\w+/status/\d+'
-    ]
-    
-    for pattern in twitter_patterns:
-        if re.search(pattern, url):
-            return True
-    return False
+    # Simple check - just verify it's a Twitter/X URL with /status/
+    # yt-dlp will handle the actual validation
+    return ('/status/' in url) and (('twitter.com' in url) or ('x.com' in url))
 
 
 def get_video_info(url):
