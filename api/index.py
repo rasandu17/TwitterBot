@@ -3,6 +3,7 @@ Vercel Serverless Function for Twitter Video Bot
 
 This file is the main entry point for Vercel deployment.
 It handles Telegram webhook requests in a serverless environment.
+Version: 2.1 - Fixed URL validation for query parameters
 """
 
 from flask import Flask, request, jsonify
