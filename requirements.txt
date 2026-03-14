@@ -17,5 +17,8 @@ Flask>=2.3.0
 # - certifi (for SSL certificates)
 # - urllib3 (for HTTP requests)
 
-# Build timestamp: 2026-03-06
+# Image composition for viral post creator
+Pillow>=10.0.0
+
+# Build timestamp: 2026-03-11
 
